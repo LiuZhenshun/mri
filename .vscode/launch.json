@@ -1,0 +1,46 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "mri_vit-base",
+            "type": "python",
+            "request": "launch",
+            "program": "~/miniconda3/envs/py311/bin/deepspeed",
+            "console": "integratedTerminal", 
+            "args": [
+                "--master_port", "29501",
+                "${workspaceFolder}/main.py",
+                "--model", "amvit_base",
+                "--nb_classes", "5",
+                "--in_chans", "1",
+                "--finetune", "/home/comp/zhenshun/pretrained/umt_pretrained/b16_ptk710_f8_res224.pth",
+                "--log_dir", "${workspaceFolder}/output/debug",
+                "--output_dir", "${workspaceFolder}/output/debug",
+                "--batch_size", "4",
+                "--input_size", "224",
+                "--save_ckpt_freq", "100",
+                "--opt", "adamw",
+                "--lr", "2.5e-4",
+                "--layer_decay", "0.75",
+                "--opt_betas", "0.9", "0.999",
+                "--weight_decay", "0.05",
+                "--epochs", "30",
+                "--drop_path", "0.2",
+                "--val_freq", "1",
+                "--kv_length", "50",
+                "--keep_max_len", "2",
+                "--enable_deepspeed",
+                "--compress",
+                "--mem_bank",
+                "--mem_factor", "0.75",
+            ],
+            "env": {
+                "OMP_NUM_THREADS": "1",
+                "CUDA_VISIBLE_DEVICES": "3",
+            }
+        },
+    ]
+}
